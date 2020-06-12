@@ -2009,6 +2009,13 @@ rules:
   - update
   - patch
   - delete
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: elastic-operator
+rules: 
 - apiGroups:
   - admissionregistration.k8s.io
   resources:
@@ -2032,6 +2039,21 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
+  name: elastic-operator
+  namespace: itx
+subjects:
+- kind: ServiceAccount
+  name: elastic-operator
+  namespace: itx
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: elastic-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
   name: elastic-operator
 subjects:
 - kind: ServiceAccount
