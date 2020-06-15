@@ -1914,7 +1914,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: elastic-operator
-  namespace: itx
+  namespace: bilbao
 rules:
 - apiGroups:
   - "authorization.k8s.io"
@@ -2048,16 +2048,16 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: elastic-operator
-  namespace: itx
+  namespace: bilbao
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: elastic-operator
-  namespace: itx
+  namespace: bilbao
 subjects:
 - kind: ServiceAccount
   name: elastic-operator
-  namespace: itx
+  namespace: bilbao
 
 ---
 #apiVersion: rbac.authorization.k8s.io/v1
@@ -2071,14 +2071,14 @@ subjects:
 #subjects:
 #- kind: ServiceAccount
 #  name: elastic-operator
-#  namespace: itx
+#  namespace: bilbao
 
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: elastic-operator
-  namespace: itx
+  namespace: bilbao
   labels:
     control-plane: elastic-operator
 spec:
@@ -2097,7 +2097,7 @@ spec:
       containers:
       - image: docker.elastic.co/eck/eck-operator:1.1.2
         name: manager
-        args: ["manager", "--enable-webhook", "--log-verbosity=0"]
+        args: ["manager", "--enable-webhook", "--log-verbosity=0","--namespaces=bilbao"]
         env:
           - name: OPERATOR_NAMESPACE
             valueFrom:
@@ -2108,7 +2108,7 @@ spec:
           - name: OPERATOR_IMAGE
             value: docker.elastic.co/eck/eck-operator:1.1.2
           - name: NAMESPACE
-            value: itx
+            value: bilbao
         resources:
           limits:
             cpu: 1
@@ -2140,7 +2140,7 @@ metadata:
     rbac.authorization.k8s.io/aggregate-to-view: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
-  namespace: itx
+  namespace: bilbao
 rules:
   - apiGroups: ["elasticsearch.k8s.elastic.co"]
     resources: ["elasticsearches"]
@@ -2161,7 +2161,7 @@ metadata:
   labels:
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
-  namespace: itx
+  namespace: bilbao
 rules:
   - apiGroups: ["elasticsearch.k8s.elastic.co"]
     resources: ["elasticsearches"]
@@ -2178,7 +2178,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: elastic-operator
-  namespace: itx
+  namespace: bilbao
 
 ---
 apiVersion: admissionregistration.k8s.io/v1beta1
@@ -2186,13 +2186,13 @@ kind: ValidatingWebhookConfiguration
 metadata:
   creationTimestamp: null
   name: elastic-webhook.k8s.elastic.co
-  namespace: itx
+  namespace: bilbao
 webhooks:
 - clientConfig:
     caBundle: Cg==
     service:
       name: elastic-webhook-server
-      namespace: itx
+      namespace: bilbao
       path: /validate-apm-k8s-elastic-co-v1-apmserver
   failurePolicy: Ignore
   name: elastic-apm-validation-v1.k8s.elastic.co
@@ -2211,7 +2211,7 @@ webhooks:
     caBundle: Cg==
     service:
       name: elastic-webhook-server
-      namespace: itx
+      namespace: bilbao
       path: /validate-apm-k8s-elastic-co-v1beta1-apmserver
   failurePolicy: Ignore
   name: elastic-apm-validation-v1beta1.k8s.elastic.co
@@ -2230,7 +2230,7 @@ webhooks:
     caBundle: Cg==
     service:
       name: elastic-webhook-server
-      namespace: itx
+      namespace: bilbao
       path: /validate-elasticsearch-k8s-elastic-co-v1-elasticsearch
   failurePolicy: Ignore
   name: elastic-es-validation-v1.k8s.elastic.co
@@ -2249,7 +2249,7 @@ webhooks:
     caBundle: Cg==
     service:
       name: elastic-webhook-server
-      namespace: itx
+      namespace: bilbao
       path: /validate-elasticsearch-k8s-elastic-co-v1beta1-elasticsearch
   failurePolicy: Ignore
   name: elastic-es-validation-v1beta1.k8s.elastic.co
@@ -2268,7 +2268,7 @@ webhooks:
     caBundle: Cg==
     service:
       name: elastic-webhook-server
-      namespace: itx
+      namespace: bilbao
       path: /validate-kibana-k8s-elastic-co-v1-kibana
   failurePolicy: Ignore
   name: elastic-kb-validation-v1.k8s.elastic.co
@@ -2287,7 +2287,7 @@ webhooks:
     caBundle: Cg==
     service:
       name: elastic-webhook-server
-      namespace: itx
+      namespace: bilbao
       path: /validate-kibana-k8s-elastic-co-v1beta1-kibana
   failurePolicy: Ignore
   name: elastic-kb-validation-v1beta1.k8s.elastic.co
@@ -2307,7 +2307,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: elastic-webhook-server
-  namespace: itx
+  namespace: bilbao
 spec:
   ports:
     - port: 443
@@ -2319,4 +2319,4 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: elastic-webhook-server-cert
-  namespace: itx
+  namespace: bilbao
