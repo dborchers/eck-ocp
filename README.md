@@ -5,6 +5,7 @@ This Operator deploys a fully operational:
 - Elasticsearch 
 - Kibana 
 - Logstash 
+- APM server
 - Metricbeat 
 - MongoDB
 
