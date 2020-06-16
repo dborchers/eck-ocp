@@ -3,7 +3,9 @@
 
 This Operator deploys a fully operational Elasticsearch, Kibana, Logstash, Metricbeat and MongoDB.
 
-Working closely with: https://github.com/iiglesiasg/helm-charts-repo
+Depends on the following repo: https://github.com/iiglesiasg/helm-charts-repo
+
+Documentation we have based our actions on:
 
 https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-deploy-eck.html
 
