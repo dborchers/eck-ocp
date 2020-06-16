@@ -1,9 +1,16 @@
 
 # ECK Operator
 
-This Operator deploys a fully operational Elasticsearch, Kibana, Logstash, Metricbeat and MongoDB.
+This Operator deploys a fully operational:
+- Elasticsearch 
+- Kibana 
+- Logstash 
+- Metricbeat 
+- MongoDB
+
 
 Depends on the following repo: https://github.com/iiglesiasg/helm-charts-repo
+
 
 Documentation we have based our actions on:
 
